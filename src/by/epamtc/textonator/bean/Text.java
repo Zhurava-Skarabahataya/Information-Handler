@@ -6,27 +6,27 @@ import java.util.List;
 public class Text implements TextElement{
 
 	private String text;
-	private List <Sentence> sentences = new ArrayList<Sentence>();
+	private List <Paragraph> paragraphs = new ArrayList<Paragraph>();
 	private Code code;
 
-	public List<Sentence> getSentences() {
-		return sentences;
+	public List<Paragraph> getParagraphs() {
+		return paragraphs;
 	}
 
 	public Code getCode() {
 		return code;
 	}
 
-	public void setSentences(List<Sentence> sentences) {
-		this.sentences = sentences;
+	public void setParagraphs(List<Paragraph> paragraphs) {
+		this.paragraphs = paragraphs;
 	}
 	
-	public void addSentence(Sentence sentence) {
-		sentences.add(sentence);
+	public void addParagraph(Paragraph paragraph) {
+		paragraphs.add(paragraph);
 	}
 	
-	public Sentence getSentence(int index) {
-		return sentences.get(index);
+	public Paragraph getParagraph(int index) {
+		return paragraphs.get(index);
 	}
 
 	public void setCode(Code code) {

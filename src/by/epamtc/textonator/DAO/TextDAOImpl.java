@@ -11,16 +11,16 @@ public class TextDAOImpl implements TextDAO {
 	public String readFromFile() throws FileNotFoundException, IOException {
 		File file = new File("resourse\\text.txt");
 
-		StringBuilder sb = new StringBuilder();
+		StringBuilder page = new StringBuilder();
 
 		try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
 			String line;
 			while ((line = reader.readLine()) != null) {
-				sb.append(line);
-				sb.append("\n");
+				page.append(line);
+				page.append("\n");
 			}
 		}
-		return sb.toString();
+		return page.toString();
 	}
 
 }
