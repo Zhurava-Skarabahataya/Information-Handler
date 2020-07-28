@@ -1,26 +1,42 @@
 package by.epamtc.textonator.DAO;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import by.epamtc.textonator.DAO.reader.SourceFileReader;
+import by.epamtc.textonator.bean.Page;
+import by.epamtc.textonator.bean.Text;
+import by.epamtc.textonator.DAO.exception.DAOException;
+import by.epamtc.textonator.DAO.parser.PageParser;
+import by.epamtc.textonator.DAO.parser.Parser;
+import by.epamtc.textonator.DAO.reader.ReaderProvider;
 
 public class TextDAOImpl implements TextDAO {
 
-	public String readFromFile() throws FileNotFoundException, IOException {
-		File file = new File("resourse\\text.txt");
+	public void readFromFile() throws DAOException {
 
-		StringBuilder page = new StringBuilder();
+		Parser parser;
+		ReaderProvider readerProvider;
+		SourceFileReader fileReader;
+		
+		parser = PageParser.getInstance();
+		
+		readerProvider = ReaderProvider.getInstance();
+		fileReader = readerProvider.getFileReader();
 
-		try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-			String line;
-			while ((line = reader.readLine()) != null) {
-				page.append(line);
-				page.append("\n");
-			}
+		while (fileReader.hasTextToRead()) {
+
+			String textPart;
+			Page page;
+			Text text;
+
+			textPart = fileReader.read();
+
+			page = new Page(textPart);
+
+			text = Text.getInstance();
+			text.addText(textPart);
+
+			parser.parse(page);
 		}
-		return page.toString();
+
 	}
 
 }

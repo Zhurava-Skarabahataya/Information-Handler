@@ -1,9 +1,8 @@
 package by.epamtc.textonator.DAO;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import by.epamtc.textonator.DAO.exception.DAOException;
 
 public interface TextDAO {
 
-	public String readFromFile() throws FileNotFoundException, IOException;
+	public void readFromFile() throws DAOException;
 }
