@@ -5,6 +5,8 @@ import java.util.List;
 
 public class Paragraph implements TextElement {
 
+	private static final long serialVersionUID = 1L;
+
 	private String paragraphText;
 	private List<Sentence> sentences = new ArrayList<Sentence>();
 

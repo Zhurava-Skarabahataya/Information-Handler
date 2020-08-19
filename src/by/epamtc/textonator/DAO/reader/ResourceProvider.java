@@ -6,9 +6,10 @@ public class ResourceProvider {
 
 	private static ResourceProvider instance = new ResourceProvider();
 	private File file;
+	private static final String FILE_PATH = "resource\\text.txt";
 
 	private ResourceProvider() {
-		this.file = new File("resourse\\text.txt");
+		this.file = new File(FILE_PATH);
 	}
 
 	public static ResourceProvider getInstance() {
@@ -23,4 +24,8 @@ public class ResourceProvider {
 		this.file = file;
 	}
 
+	public String getFilePath() {
+		return FILE_PATH;
+	}
+		
 }

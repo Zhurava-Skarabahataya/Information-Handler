@@ -5,6 +5,8 @@ import java.util.List;
 
 public class Page implements TextElement {
 
+	private static final long serialVersionUID = 1L;
+
 	private String pageText;
 	private List<Paragraph> paragraphs = new ArrayList<Paragraph>();
 

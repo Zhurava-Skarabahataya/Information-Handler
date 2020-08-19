@@ -5,6 +5,8 @@ import java.util.List;
 
 public class Text implements TextElement {
 
+	private static final long serialVersionUID = 1L;
+
 	private static final Text instance = new Text();
 
 	private String text;

@@ -2,6 +2,8 @@ package by.epamtc.textonator.bean;
 
 public class CodeBlock implements TextElement {
 
+	private static final long serialVersionUID = 1L;
+	
 	private String codeBlockText;
 
 	public CodeBlock() {

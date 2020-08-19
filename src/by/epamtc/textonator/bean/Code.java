@@ -5,6 +5,8 @@ import java.util.List;
 
 public class Code implements TextElement{
 
+	private static final long serialVersionUID = 1L;
+	
 	private static final Code instance = new Code();
 	private List <CodeBlock> codeBlocks = new ArrayList<CodeBlock>();
 	

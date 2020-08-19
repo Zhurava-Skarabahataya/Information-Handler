@@ -1,5 +1,7 @@
 package by.epamtc.textonator.bean;
 
-public interface TextElement {
+import java.io.Serializable;
+
+public interface TextElement extends Serializable {
 
 }

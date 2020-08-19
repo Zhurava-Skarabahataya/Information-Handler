@@ -5,6 +5,8 @@ import java.util.List;
 
 public class Sentence implements TextElement {
 
+	private static final long serialVersionUID = 1L;
+	
 	private String sentenceText;
 	private List<SentenceElement> sentenceElements = new ArrayList<SentenceElement>();
 

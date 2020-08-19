@@ -2,6 +2,8 @@ package by.epamtc.textonator.bean;
 
 public class UnparsableTextElement implements TextElement, SentenceElement {
 
+	private static final long serialVersionUID = 1L;
+
 	String element;
 
 	public UnparsableTextElement() {
