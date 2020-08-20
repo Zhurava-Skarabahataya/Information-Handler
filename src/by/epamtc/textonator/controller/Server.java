@@ -1,26 +1,23 @@
 package by.epamtc.textonator.controller;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import by.epamtc.textonator.DAO.reader.ResourceProvider;
 import by.epamtc.textonator.bean.Text;
+import by.epamtc.textonator.controller.exception.ControllerException;
 import by.epamtc.textonator.logic.FileParsingExecutor;
-import by.epamtc.textonator.main.Main;
 import by.epamtc.textonator.main.exception.LogicException;
 
 public class Server {
 
 	private static final int port = 6666;
 
-	public static void main(String[] args) throws LogicException {
+	public static void main(String[] args) throws ControllerException {
 		ServerSocket serverSocket = null;
 		try {
 			InetAddress ia;
@@ -36,46 +33,68 @@ public class Server {
 			serve(socket);
 
 		} catch (UnknownHostException e) {
-			e.printStackTrace();
+			throw new ControllerException(e);
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new ControllerException(e);
 		} finally {
 			if (serverSocket != null)
 				try {
 					serverSocket.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					throw new ControllerException(e);
 				}
 		}
 
 	}
 
-	private static void serve(Socket socket) throws IOException, LogicException {
+	private static void serve(Socket socket) throws ControllerException {
 
 		ObjectOutputStream out = null;
 		ObjectInputStream in = null;
 
-		out = new ObjectOutputStream(socket.getOutputStream());
-		in = new ObjectInputStream(socket.getInputStream());
+		try {
+			out = new ObjectOutputStream(socket.getOutputStream());
+			in = new ObjectInputStream(socket.getInputStream());
+			
+		} catch (IOException e1) {
+			throw new ControllerException(e1);
+		}
 
 		String filePath = null;
-		
+
 		try {
 			filePath = (String) in.readObject();
-			
+
 		} catch (ClassNotFoundException | IOException e) {
-			e.printStackTrace();
+			throw new ControllerException(e);
+			
+		} finally {
+			
+			try {
+				in.close();
+			} catch (IOException e) {
+				throw new ControllerException(e);
+			}
 		}
-		System.out.println("SERVER GET PATH" + filePath);
-		
+
 		FileParsingExecutor executor = FileParsingExecutor.getInstance();
-		executor.executeFileParsing();
-		System.out.println("HEREEEEEEE");
+
+		try {
+			executor.executeFileParsing();
+		} catch (LogicException e) {
+			throw new ControllerException(e);
+		}
+
 		Text text = Text.getInstance();
-		out.writeObject(text);
-		out.flush();
-		out.close();
-		in.close();
+
+		try {
+			out.writeObject(text);
+			out.flush();
+			out.close();
+			
+		} catch (IOException e) {
+			throw new ControllerException(e);
+		}
 	}
 
 }
